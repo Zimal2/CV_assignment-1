@@ -1,0 +1,100 @@
+{
+ "Chest": {
+  "sp": {
+   "lo": 1,
+   "hi": 99.5,
+   "gamma": 0.8,
+   "clip": 1.5,
+   "tiles": 6,
+   "sigma": 1.5,
+   "k": 0.7,
+   "pre_sigma": 1.0
+  },
+  "hfe": {
+   "d0_frac": 0.05,
+   "a": 0.8,
+   "b": 1.5,
+   "kind": "butter",
+   "n": 2,
+   "norm": null
+  },
+  "hp": {
+   "d0_frac": 0.05
+  },
+  "homo": {
+   "d0_frac": 0.04,
+   "gl": 0.4,
+   "gh": 1.8,
+   "eps": 0.1
+  },
+  "hy": {
+   "homo": {
+    "d0_frac": 0.04,
+    "gl": 0.6,
+    "gh": 1.4,
+    "eps": 0.1
+   },
+   "pre_sigma": 1.8,
+   "stretch": [
+    1,
+    99.5
+   ],
+   "gamma": 0.9,
+   "clip": 1.2,
+   "tiles": 4,
+   "sigma": 2.0,
+   "k": 0.5,
+   "alpha": 0.8
+  },
+  "w": 0.6
+ },
+ "Skeleton": {
+  "sp": {
+   "lo": 0.5,
+   "hi": 99.5,
+   "gamma": 0.6,
+   "clip": 1.5,
+   "tiles": 6,
+   "sigma": 1.5,
+   "k": 0.7,
+   "pre_sigma": 0.0
+  },
+  "hfe": {
+   "d0_frac": 0.05,
+   "a": 0.8,
+   "b": 1.5,
+   "kind": "butter",
+   "n": 2,
+   "norm": null
+  },
+  "hp": {
+   "d0_frac": 0.05
+  },
+  "homo": {
+   "d0_frac": 0.04,
+   "gl": 0.4,
+   "gh": 1.8,
+   "eps": 0.1
+  },
+  "hy": {
+   "homo": {
+    "d0_frac": 0.04,
+    "gl": 0.6,
+    "gh": 1.4,
+    "eps": 0.3
+   },
+   "pre_sigma": 0.0,
+   "stretch": [
+    1,
+    99.5
+   ],
+   "gamma": 0.7,
+   "clip": 1.2,
+   "tiles": 4,
+   "sigma": 2.0,
+   "k": 0.4,
+   "alpha": 0.8
+  },
+  "w": 0.6
+ }
+}
