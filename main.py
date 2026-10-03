@@ -114,17 +114,22 @@ for name in ["Chest", "Skeleton"]:
     def fuse(): return hy.hybrid_fusion(Is, If, c["w"])
     t_h2, ts_h2, Ih2 = median_time_ms(fuse)
     t_h2_fusion_only = t_h2
-    t_h2 += t_sp + t_hfe  # END-TO-END cost (includes producing both source images); fusion-only kept separately
+    # END-TO-END cost (includes producing both source images). Taken as the median of the per-run totals
+    # (spatial_i + HFE_i + fusion_i) rather than the sum of the three medians, so that the figure quoted in
+    # the report equals the median of the 15 logged end-to-end runs. Fusion-only cost kept separately.
+    ts_h2 = [a + b + c_ for a, b, c_ in zip(ts_h2, ts_sp, ts_hfe)]
+    t_h2 = float(np.median(ts_h2))
 
     runs[name] = {"Histogram equalization": ts_he, "Spatial (final)": ts_sp, "Gaussian high-pass": ts_hp,
                   "Fourier HFE (final)": ts_hfe, "Homomorphic": ts_ho, "Hybrid 1 (sequential)": ts_h1,
-                  "Hybrid 2 (fusion)": [a + b + c_ for a, b, c_ in zip(ts_h2, ts_sp, ts_hfe)]}
+                  "Hybrid 2 (fusion)": ts_h2}
     fusion_only[name] = t_h2_fusion_only
     results = {"Original": (x, None), "Histogram equalization": (he, t_he), "Spatial (final)": (Is, t_sp),
                "Gaussian high-pass": (Ihp, t_hp), "Fourier HFE (final)": (If, t_hfe), "Homomorphic": (Iho, t_ho),
                "Hybrid 1 (sequential)": (Ih1, t_h1), "Hybrid 2 (fusion)": (Ih2, t_h2)}
     for k, (im, t) in results.items():
-        save(f"{name}_{k.replace(' ', '_').replace('(', '').replace(')', '')}", im)
+        if k != "Original":          # already written above as {name}_00_original.png
+            save(f"{name}_{k.replace(' ', '_').replace('(', '').replace(')', '')}", im)
         m = compute_metrics(im)
         all_rows.append(dict(image=name, method=k, runtime_ms=t, **m))
 

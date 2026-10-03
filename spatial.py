@@ -37,7 +37,10 @@ def unsharp(x, sigma=1.5, k=0.8):
 
 def spatial_enhance(x, lo=1, hi=99.5, gamma=0.8, clip=1.5, tiles=6, den="bilateral", sigma=1.5, k=0.7, pre_sigma=0.0):
     """Final spatial pipeline: [light pre-smoothing] -> percentile stretch -> gamma -> CLAHE -> denoise -> unsharp.
-    pre_sigma > 0 suppresses JPEG 8x8 blocking that CLAHE would otherwise amplify in dark regions."""
+    pre_sigma > 0 dithers the coarse intensity quantisation of the source images (Chest.bmp carries a
+    219-entry grey palette, and only ~20 distinct levels fall in the darkest 40% of the image; Skeleton.bmp
+    has ~9). Without it CLAHE stretches those few levels into wide flat plateaus, i.e. visible posterisation
+    (contour banding) in the dark lung/background regions."""
     if pre_sigma > 0:
         x = cv2.GaussianBlur(x, (0, 0), pre_sigma)
     y = pct_stretch(x, lo, hi)
